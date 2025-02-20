@@ -15,7 +15,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 embedding_model = SentenceTransformer('all-MiniLM-L6-v2')
 
 # Correct client initialization for ChromaDB
-client = chromadb.HttpClient(host="localhost", port=8000)  # Connects to the running Chroma server
+client = chromadb.Client()
 collection = client.get_collection(name="products")
 
 # Check 'product_collection'
