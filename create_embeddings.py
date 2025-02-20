@@ -1,35 +1,27 @@
 import json
 import os
-from pinecone import Pinecone, ServerlessSpec
+from pinecone import Pinecone
 from sentence_transformers import SentenceTransformer
 from dotenv import load_dotenv
 
-# 🚀 Load environment variables
+# Load environment variables
 load_dotenv()
 
-# 🔑 Initialize Pinecone
+# Initialize Pinecone
 pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
 index_name = "product-index"
 
-# 📦 Load products
+# Connect to the existing index
+index = pc.Index(index_name)
+
+# Load products from JSON
 with open("products.json", "r") as file:
     products = json.load(file)
 
-# 🧠 Load embedding model
+# Load embedding model
 embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
 
-# 📝 Create index if it doesn't exist
-if index_name not in pc.list_indexes().names():
-    pc.create_index(
-        name=index_name,
-        dimension=384,  # Embedding size for "all-MiniLM-L6-v2"
-        metric="cosine",
-        spec=ServerlessSpec(cloud="aws", region="us-east-1")
-    )
-
-index = pc.Index(index_name)
-
-# 🛠️ Generate embeddings with valid metadata
+# Generate embeddings and metadata
 vectors = [
     {
         "id": str(product["id"]),
@@ -37,16 +29,16 @@ vectors = [
         "metadata": {
             "title": product["title"],
             "description": product["description"],
-            "price": product["price"],
+            "price": float(product["price"]),
             "image": product["image"],
             "category": product["category"],
-            "rating_rate": float(product["rating"]["rate"]),    # ✅ Converted to float
-            "rating_count": int(product["rating"]["count"])     # ✅ Converted to int
+            "rating_rate": float(product["rating"]["rate"]),
+            "rating_count": int(product["rating"]["count"])
         }
     }
     for product in products
 ]
 
-# 🚀 Upload embeddings to Pinecone
+# Upload vectors to Pinecone
 index.upsert(vectors=vectors)
 print("✅ Embeddings created and uploaded successfully.")
