@@ -1,64 +1,56 @@
-import chromadb
-from chromadb.config import Settings
-import openai
-import os
-from dotenv import load_dotenv
+import faiss
+import json
+import numpy as np
 from sentence_transformers import SentenceTransformer
+import openai
+from dotenv import load_dotenv
+import os
 
-# Load environment variables from .env
+# Load environment variables from .env (for OpenAI API key)
 load_dotenv()
-
-# Initialize OpenAI client with your API key
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-# Initialize embedding model
-embedding_model = SentenceTransformer('all-MiniLM-L6-v2')
+# Load the sentence transformer model
+model = SentenceTransformer('all-MiniLM-L6-v2')
 
-# Correct client initialization for ChromaDB
-client = chromadb.Client()
-collection = client.get_collection(name="products")
+# Load the FAISS index
+index = faiss.read_index("faiss_index.index")
 
-# Check 'product_collection'
-product_collection = client.get_collection(name="product_collection")
-product_docs = product_collection.get()
-print("📄 Documents in 'product_collection':", product_docs)
+# Load product metadata
+with open("product_metadata.json", "r") as file:
+    product_metadata = json.load(file)
 
-# Check 'products'
-products_collection = client.get_collection(name="products")
-products_docs = products_collection.get()
-print("📄 Documents in 'products':", products_docs)
 
 def retrieve_products(query: str, top_k: int = 3):
-    """Retrieve the top k most relevant products from ChromaDB based on the query."""
-    query_embedding = embedding_model.encode(query).tolist()
-    results = collection.query(
-        query_embeddings=[query_embedding],
-        n_results=top_k
-    )
-    return results["documents"][0] if results["documents"] else []
+    """Retrieve the top_k most relevant products using FAISS."""
+    query_embedding = model.encode([query]).astype('float32')
+    distances, indices = index.search(query_embedding, top_k)
+    retrieved_products = [product_metadata[i] for i in indices[0] if i != -1]
+    return retrieved_products
+
 
 def generate_answer(user_query: str, retrieved_docs: list):
     """Generate a natural language answer using OpenAI and the retrieved documents."""
     if not retrieved_docs:
-        return "Sorry, I couldn't find any relevant products."
+        return "❌ Sorry, I couldn't find any relevant products."
 
-    context = "\n".join(retrieved_docs)
+    context = "\n".join([f"- {doc['description']}" for doc in retrieved_docs])
 
     response = openai.chat.completions.create(
         model="gpt-3.5-turbo",  # Use "gpt-4" if available
         messages=[
-            {"role": "system", "content": "You are a helpful assistant that provides information about products."},
-            {"role": "user", "content": f"Context: {context}\nQuestion: {user_query}\nAnswer:"}
+            {"role": "system", "content": "You are a helpful assistant that provides product information."},
+            {"role": "user", "content": f"Context:\n{context}\n\nQuestion: {user_query}\nAnswer:"},
         ],
         temperature=0.5,
-        max_tokens=150
+        max_tokens=150,
     )
 
     return response.choices[0].message.content.strip()
 
+
 if __name__ == "__main__":
-    # Example usage:
     query = input("🔎 Enter your product question: ")
     retrieved_docs = retrieve_products(query)
     answer = generate_answer(query, retrieved_docs)
-    print("\n🤖 Answer:", answer)
+    print(f"\n🤖 Answer: {answer}")
