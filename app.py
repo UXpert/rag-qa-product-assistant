@@ -1,50 +1,74 @@
 import streamlit as st
-from retrieve_and_answer import retrieve_products, re_rank_products
-from sentence_transformers import SentenceTransformer
-from pinecone import Pinecone
-from dotenv import load_dotenv
 import os
+from pinecone import Pinecone
+from sentence_transformers import SentenceTransformer
+from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
 
-# Initialize Pinecone
+# Initialize Pinecone and index
 pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
-index_name = "product-index"
-index = pc.Index(index_name)
+index = pc.Index("product-index")
 
 # Load embedding model
-embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
+model = SentenceTransformer("all-MiniLM-L6-v2")
 
-# Streamlit UI setup
+# Sidebar with demo description
+st.sidebar.title("ℹ️ About this Demo")
+st.sidebar.markdown("""
+This **Product Information Assistant** uses **Retrieval-Augmented Generation (RAG)** to help you find products based on your queries.
+
+### How it works:
+1. Your query is converted into an embedding.
+2. We retrieve relevant products from a **Pinecone** vector database.
+3. Results display product info like price, category, and description.
+
+👉 Try queries like:
+- **Show me electronics**  
+- **Show me clothing**  
+- **Find products under $50**  
+""")
+
+# Main UI
 st.title("🛍️ Product Information Assistant")
-st.write("Ask any question about our products (e.g., *Which product has the best battery life?*)")
+st.write("Ask any question about our products (e.g., *Show me electronics*)")
 
-query = st.text_input("Enter your product question:")
+query = st.text_input("Enter your product question:", placeholder="Show me electronics")
 
 if query:
-    query_embedding = embedding_model.encode(query).tolist()
+    with st.spinner("🔎 Searching for products..."):
+        # Generate embedding for the query
+        query_embedding = model.encode(query).tolist()
 
-    # Retrieve products from Pinecone
-    retrieved_products = retrieve_products(index, query_embedding)
+        # Query Pinecone
+        response = index.query(vector=query_embedding, top_k=5, include_metadata=True)
+        matches = response.get("matches", [])
 
-    if retrieved_products:
-        # Re-rank the retrieved products
-        ranked_products = re_rank_products(query, retrieved_products)
+        # Diagnostic: Check for mismatched categories
+        # for match in matches:
+            # metadata = match["metadata"]
+            # if metadata.get("category", "").lower() not in query.lower():
+                # st.warning("⚠️ **Mismatched Category Detected:**")
+                # st.json(metadata)
 
-        st.subheader("📦 Retrieved Products:")
-        for product in ranked_products:
-            metadata = product["metadata"]
-            st.markdown(f"""
-                <div style="display: flex; align-items: center; margin-bottom: 10px; background-color: #2C2C2C; padding: 10px; border-radius: 10px;">
-                    <img src="{metadata['image']}" width="100" style="border-radius: 5px; margin-right: 15px;">
-                    <div>
-                        <strong>{metadata['title']}</strong><br>
-                        💵 <span style="color: #32CD32;">${metadata['price']}</span><br>
-                        ⭐ {metadata['rating']['rate']} ({metadata['rating']['count']} reviews)<br>
-                        🗂️ Category: {metadata['category']}
+        # Display retrieved products
+        if matches:
+            st.subheader("📦 Retrieved Products:")
+            for match in matches:
+                metadata = match['metadata']
+                image_html = f'<img src="{metadata.get("image", "")}" width="120" style="float:left; margin-right:16px; border-radius:8px;">' if metadata.get("image") else ''
+                
+                st.markdown(f"""
+                    <div style="border:1px solid #4F4F4F; border-radius:8px; padding:16px; margin-bottom:16px; background-color:#2E2E2E; color:white;">
+                        {image_html}
+                        <h4>{metadata.get('title', 'No title')}</h4>
+                        <p><strong>💵 Price:</strong> ${metadata.get('price', 'N/A')}<br>
+                        <strong>⭐ Rating:</strong> {metadata.get('rating_rate', 'N/A')} ({metadata.get('rating_count', '0')} reviews)<br>
+                        <strong>📂 Category:</strong> {metadata.get('category', 'N/A')}<br>
+                        <strong>📝 Description:</strong> {metadata.get('description', 'No description available')}</p>
+                        <div style="clear:both;"></div>
                     </div>
-                </div>
-            """, unsafe_allow_html=True)
-    else:
-        st.warning("🚫 No matching products found. Please try a different query.")
+                """, unsafe_allow_html=True)
+        else:
+            st.warning("⚠️ No matching products found. Please try a different query.")
