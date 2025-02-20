@@ -1,0 +1,117 @@
+[33mWARNING[0m:  [19-02-2025 21:22:41] chroma_server_nofile is set to 65535, but this is less than current soft limit of 1048575. chroma_server_nofile will not be set.
+[32mINFO[0m:     [19-02-2025 21:22:41] Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+[36mDEBUG[0m:    [19-02-2025 21:22:41] Starting component System
+[36mDEBUG[0m:    [19-02-2025 21:22:41] Starting component OpenTelemetryClient
+[36mDEBUG[0m:    [19-02-2025 21:22:41] Starting component SqliteDB
+[36mDEBUG[0m:    [19-02-2025 21:22:41] Starting component SimpleQuotaEnforcer
+[36mDEBUG[0m:    [19-02-2025 21:22:41] Starting component Posthog
+[36mDEBUG[0m:    [19-02-2025 21:22:41] Starting component SimpleRateLimitEnforcer
+[36mDEBUG[0m:    [19-02-2025 21:22:41] Starting component LocalSegmentManager
+[36mDEBUG[0m:    [19-02-2025 21:22:41] Starting component LocalExecutor
+[36mDEBUG[0m:    [19-02-2025 21:22:41] Starting component SegmentAPI
+[36mDEBUG[0m:    [19-02-2025 21:22:41] Starting component SimpleAsyncRateLimitEnforcer
+[32mINFO[0m:     [19-02-2025 21:22:41] Started server process [[36m68709[0m]
+[32mINFO[0m:     [19-02-2025 21:22:41] Waiting for application startup.
+[32mINFO[0m:     [19-02-2025 21:22:41] Application startup complete.
+[32mINFO[0m:     [19-02-2025 21:22:41] Uvicorn running on [1mhttp://localhost:8000[0m (Press CTRL+C to quit)
+[32mINFO[0m:     [19-02-2025 21:23:49] ::1:52347 - "GET /api/v2/auth/identity HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:23:49] ::1:52348 - "GET /api/v2/tenants/default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:23:49] ::1:52348 - "GET /api/v2/tenants/default_tenant/databases/default_database HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:23:49] ::1:52347 - "GET /api/v2/tenants/default_tenant/databases/default_database/collections/products HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:23:49] ::1:52347 - "GET /api/v2/tenants/default_tenant/databases/default_database/collections/product_collection HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:23:49] ::1:52347 - "POST /api/v2/tenants/default_tenant/databases/default_database/collections/12fa50c5-6df6-41b6-a199-f6bd841628de/get HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:23:49] ::1:52347 - "GET /api/v2/tenants/default_tenant/databases/default_database/collections/products HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:23:49] ::1:52347 - "POST /api/v2/tenants/default_tenant/databases/default_database/collections/0646467c-e76d-4759-99ec-233f6e979dff/get HTTP/1.1" 200
+[36mDEBUG[0m:    [19-02-2025 21:25:04] Starting component PersistentLocalHnswSegment
+[32mINFO[0m:     [19-02-2025 21:25:04] ::1:52373 - "POST /api/v2/tenants/default_tenant/databases/default_database/collections/0646467c-e76d-4759-99ec-233f6e979dff/query HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:26:20] ::1:52389 - "GET /api/v2/auth/identity HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:26:20] ::1:52390 - "GET /api/v2/tenants/default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:26:20] ::1:52390 - "GET /api/v2/tenants/default_tenant/databases/default_database HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:26:20] ::1:52389 - "GET /api/v2/tenants/default_tenant/databases/default_database/collections/products HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:26:20] ::1:52389 - "GET /api/v2/tenants/default_tenant/databases/default_database/collections/product_collection HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:26:20] ::1:52389 - "POST /api/v2/tenants/default_tenant/databases/default_database/collections/12fa50c5-6df6-41b6-a199-f6bd841628de/get HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:26:20] ::1:52389 - "GET /api/v2/tenants/default_tenant/databases/default_database/collections/products HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:26:20] ::1:52389 - "POST /api/v2/tenants/default_tenant/databases/default_database/collections/0646467c-e76d-4759-99ec-233f6e979dff/get HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:26:29] ::1:52393 - "POST /api/v2/tenants/default_tenant/databases/default_database/collections/0646467c-e76d-4759-99ec-233f6e979dff/query HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:28:09] ::1:52404 - "GET /api/v2/auth/identity HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:28:09] ::1:52405 - "GET /api/v2/tenants/default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:28:09] ::1:52405 - "GET /api/v2/tenants/default_tenant/databases/default_database HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:28:09] ::1:52404 - "GET /api/v2/tenants/default_tenant/databases/default_database/collections/products HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:28:09] ::1:52404 - "GET /api/v2/tenants/default_tenant/databases/default_database/collections/product_collection HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:28:09] ::1:52404 - "POST /api/v2/tenants/default_tenant/databases/default_database/collections/12fa50c5-6df6-41b6-a199-f6bd841628de/get HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:28:09] ::1:52404 - "GET /api/v2/tenants/default_tenant/databases/default_database/collections/products HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:28:09] ::1:52404 - "POST /api/v2/tenants/default_tenant/databases/default_database/collections/0646467c-e76d-4759-99ec-233f6e979dff/get HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:31:59] ::1:52502 - "GET /api/v2/auth/identity HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:31:59] ::1:52503 - "GET /api/v2/tenants/default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:31:59] ::1:52503 - "GET /api/v2/tenants/default_tenant/databases/default_database HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:31:59] ::1:52502 - "GET /api/v2/tenants/default_tenant/databases/default_database/collections/products HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:31:59] ::1:52502 - "GET /api/v2/tenants/default_tenant/databases/default_database/collections/product_collection HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:31:59] ::1:52502 - "POST /api/v2/tenants/default_tenant/databases/default_database/collections/12fa50c5-6df6-41b6-a199-f6bd841628de/get HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:31:59] ::1:52502 - "GET /api/v2/tenants/default_tenant/databases/default_database/collections/products HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:31:59] ::1:52502 - "POST /api/v2/tenants/default_tenant/databases/default_database/collections/0646467c-e76d-4759-99ec-233f6e979dff/get HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:32:08] ::1:52505 - "POST /api/v2/tenants/default_tenant/databases/default_database/collections/0646467c-e76d-4759-99ec-233f6e979dff/query HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:35:26] ::1:52604 - "GET /api/v2/auth/identity HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:35:26] ::1:52605 - "GET /api/v2/tenants/default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:35:26] ::1:52605 - "GET /api/v2/tenants/default_tenant/databases/default_database HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:35:26] ::1:52604 - "GET /api/v2/tenants/default_tenant/databases/default_database/collections/products HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:35:26] ::1:52604 - "GET /api/v2/tenants/default_tenant/databases/default_database/collections/product_collection HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:35:26] ::1:52604 - "POST /api/v2/tenants/default_tenant/databases/default_database/collections/12fa50c5-6df6-41b6-a199-f6bd841628de/get HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:35:26] ::1:52604 - "GET /api/v2/tenants/default_tenant/databases/default_database/collections/products HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:35:26] ::1:52604 - "POST /api/v2/tenants/default_tenant/databases/default_database/collections/0646467c-e76d-4759-99ec-233f6e979dff/get HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:35:49] ::1:52609 - "POST /api/v2/tenants/default_tenant/databases/default_database/collections/0646467c-e76d-4759-99ec-233f6e979dff/query HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:39:07] ::1:52744 - "GET /api/v2/auth/identity HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:39:07] ::1:52745 - "GET /api/v2/tenants/default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:39:07] ::1:52745 - "GET /api/v2/tenants/default_tenant/databases/default_database HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:39:07] ::1:52744 - "GET /api/v2/tenants/default_tenant/databases/default_database/collections/products HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:39:07] ::1:52744 - "GET /api/v2/tenants/default_tenant/databases/default_database/collections/product_collection HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:39:07] ::1:52744 - "POST /api/v2/tenants/default_tenant/databases/default_database/collections/12fa50c5-6df6-41b6-a199-f6bd841628de/get HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:39:07] ::1:52744 - "GET /api/v2/tenants/default_tenant/databases/default_database/collections/products HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:39:07] ::1:52744 - "POST /api/v2/tenants/default_tenant/databases/default_database/collections/0646467c-e76d-4759-99ec-233f6e979dff/get HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 21:51:44] ::1:52923 - "POST /api/v2/tenants/default_tenant/databases/default_database/collections/0646467c-e76d-4759-99ec-233f6e979dff/query HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 22:00:35] ::1:53139 - "GET /api/v2/auth/identity HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 22:00:35] ::1:53140 - "GET /api/v2/tenants/default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 22:00:35] ::1:53140 - "GET /api/v2/tenants/default_tenant/databases/default_database HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 22:00:35] ::1:53139 - "GET /api/v2/tenants/default_tenant/databases/default_database/collections/products HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 22:00:35] ::1:53139 - "GET /api/v2/tenants/default_tenant/databases/default_database/collections/product_collection HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 22:00:35] ::1:53139 - "POST /api/v2/tenants/default_tenant/databases/default_database/collections/12fa50c5-6df6-41b6-a199-f6bd841628de/get HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 22:00:35] ::1:53139 - "GET /api/v2/tenants/default_tenant/databases/default_database/collections/products HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 22:00:35] ::1:53139 - "POST /api/v2/tenants/default_tenant/databases/default_database/collections/0646467c-e76d-4759-99ec-233f6e979dff/get HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 22:00:42] ::1:53142 - "POST /api/v2/tenants/default_tenant/databases/default_database/collections/0646467c-e76d-4759-99ec-233f6e979dff/query HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 22:04:45] ::1:53237 - "GET /api/v2/auth/identity HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 22:04:45] ::1:53238 - "GET /api/v2/tenants/default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 22:04:45] ::1:53238 - "GET /api/v2/tenants/default_tenant/databases/default_database HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 22:04:45] ::1:53237 - "GET /api/v2/tenants/default_tenant/databases/default_database/collections/products HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 22:04:45] ::1:53237 - "GET /api/v2/tenants/default_tenant/databases/default_database/collections/product_collection HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 22:04:45] ::1:53237 - "POST /api/v2/tenants/default_tenant/databases/default_database/collections/12fa50c5-6df6-41b6-a199-f6bd841628de/get HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 22:04:45] ::1:53237 - "GET /api/v2/tenants/default_tenant/databases/default_database/collections/products HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 22:04:45] ::1:53237 - "POST /api/v2/tenants/default_tenant/databases/default_database/collections/0646467c-e76d-4759-99ec-233f6e979dff/get HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 22:04:56] ::1:53241 - "POST /api/v2/tenants/default_tenant/databases/default_database/collections/0646467c-e76d-4759-99ec-233f6e979dff/query HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 22:08:04] ::1:53253 - "GET /api/v2/auth/identity HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 22:08:04] ::1:53254 - "GET /api/v2/tenants/default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 22:08:04] ::1:53254 - "GET /api/v2/tenants/default_tenant/databases/default_database HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 22:08:04] ::1:53253 - "GET /api/v2/tenants/default_tenant/databases/default_database/collections/products HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 22:08:04] ::1:53253 - "GET /api/v2/tenants/default_tenant/databases/default_database/collections/product_collection HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 22:08:04] ::1:53253 - "POST /api/v2/tenants/default_tenant/databases/default_database/collections/12fa50c5-6df6-41b6-a199-f6bd841628de/get HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 22:08:04] ::1:53253 - "GET /api/v2/tenants/default_tenant/databases/default_database/collections/products HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 22:08:04] ::1:53253 - "POST /api/v2/tenants/default_tenant/databases/default_database/collections/0646467c-e76d-4759-99ec-233f6e979dff/get HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 22:08:11] ::1:53256 - "POST /api/v2/tenants/default_tenant/databases/default_database/collections/0646467c-e76d-4759-99ec-233f6e979dff/query HTTP/1.1" 200
+[32mINFO[0m:     [19-02-2025 22:08:42] ::1:53315 - "POST /api/v2/tenants/default_tenant/databases/default_database/collections/0646467c-e76d-4759-99ec-233f6e979dff/query HTTP/1.1" 200
+[32mINFO[0m:     [20-02-2025 09:18:55] ::1:64396 - "POST /api/v2/tenants/default_tenant/databases/default_database/collections/0646467c-e76d-4759-99ec-233f6e979dff/query HTTP/1.1" 200
+[32mINFO[0m:     [20-02-2025 09:24:59] ::1:64619 - "GET /api/v2/auth/identity HTTP/1.1" 200
+[32mINFO[0m:     [20-02-2025 09:24:59] ::1:64620 - "GET /api/v2/tenants/default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [20-02-2025 09:24:59] ::1:64620 - "GET /api/v2/tenants/default_tenant/databases/default_database HTTP/1.1" 200
+[32mINFO[0m:     [20-02-2025 09:24:59] ::1:64619 - "GET /api/v2/tenants/default_tenant/databases/default_database/collections/products HTTP/1.1" 200
+[32mINFO[0m:     [20-02-2025 09:24:59] ::1:64619 - "GET /api/v2/tenants/default_tenant/databases/default_database/collections/product_collection HTTP/1.1" 200
+[32mINFO[0m:     [20-02-2025 09:24:59] ::1:64619 - "POST /api/v2/tenants/default_tenant/databases/default_database/collections/12fa50c5-6df6-41b6-a199-f6bd841628de/get HTTP/1.1" 200
+[32mINFO[0m:     [20-02-2025 09:24:59] ::1:64619 - "GET /api/v2/tenants/default_tenant/databases/default_database/collections/products HTTP/1.1" 200
+[32mINFO[0m:     [20-02-2025 09:24:59] ::1:64619 - "POST /api/v2/tenants/default_tenant/databases/default_database/collections/0646467c-e76d-4759-99ec-233f6e979dff/get HTTP/1.1" 200
+[32mINFO[0m:     [20-02-2025 09:25:08] ::1:64625 - "POST /api/v2/tenants/default_tenant/databases/default_database/collections/0646467c-e76d-4759-99ec-233f6e979dff/query HTTP/1.1" 200
+[32mINFO[0m:     [20-02-2025 09:27:12] ::1:64653 - "GET /api/v2/auth/identity HTTP/1.1" 200
+[32mINFO[0m:     [20-02-2025 09:27:12] ::1:64654 - "GET /api/v2/tenants/default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [20-02-2025 09:27:12] ::1:64654 - "GET /api/v2/tenants/default_tenant/databases/default_database HTTP/1.1" 200
+[32mINFO[0m:     [20-02-2025 09:27:12] ::1:64653 - "GET /api/v2/tenants/default_tenant/databases/default_database/collections/products HTTP/1.1" 200
+[32mINFO[0m:     [20-02-2025 09:27:12] ::1:64653 - "GET /api/v2/tenants/default_tenant/databases/default_database/collections/product_collection HTTP/1.1" 200
+[32mINFO[0m:     [20-02-2025 09:27:12] ::1:64653 - "POST /api/v2/tenants/default_tenant/databases/default_database/collections/12fa50c5-6df6-41b6-a199-f6bd841628de/get HTTP/1.1" 200
+[32mINFO[0m:     [20-02-2025 09:27:12] ::1:64653 - "GET /api/v2/tenants/default_tenant/databases/default_database/collections/products HTTP/1.1" 200
+[32mINFO[0m:     [20-02-2025 09:27:12] ::1:64653 - "POST /api/v2/tenants/default_tenant/databases/default_database/collections/0646467c-e76d-4759-99ec-233f6e979dff/get HTTP/1.1" 200
+[32mINFO[0m:     [20-02-2025 09:27:28] ::1:64659 - "POST /api/v2/tenants/default_tenant/databases/default_database/collections/0646467c-e76d-4759-99ec-233f6e979dff/query HTTP/1.1" 200
