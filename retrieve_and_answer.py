@@ -19,10 +19,13 @@ openai.api_key = OPENAI_API_KEY
 embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
 
 def retrieve_products(query: str, top_k: int = 3):
-    """Retrieve the top_k most relevant products from Pinecone based on the query."""
     query_embedding = embedding_model.encode(query).tolist()
-    response = index.query(vector=query_embedding, top_k=top_k, include_metadata=True)
-    return [match["metadata"]["description"] for match in response["matches"]] if response["matches"] else []
+    results = index.query(
+        vector=query_embedding,
+        top_k=top_k,
+        include_metadata=True
+    )
+    return results['matches'] if 'matches' in results else []
 
 def generate_answer(user_query: str, retrieved_docs: list):
     """Generate a natural language answer using OpenAI and the retrieved documents."""

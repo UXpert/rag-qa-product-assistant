@@ -1,45 +1,52 @@
+import json
 import os
 from pinecone import Pinecone, ServerlessSpec
-from dotenv import load_dotenv
 from sentence_transformers import SentenceTransformer
+from dotenv import load_dotenv
 
-# Load environment variables from .env
+# 🚀 Load environment variables
 load_dotenv()
 
-PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
+# 🔑 Initialize Pinecone
+pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
+index_name = "product-index"
 
-# Initialize Pinecone client
-pc = Pinecone(api_key=PINECONE_API_KEY)
+# 📦 Load products
+with open("products.json", "r") as file:
+    products = json.load(file)
 
-# Create an index (if it doesn't exist)
-index_name = "product-assistant"
+# 🧠 Load embedding model
+embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
+
+# 📝 Create index if it doesn't exist
 if index_name not in pc.list_indexes().names():
     pc.create_index(
         name=index_name,
-        dimension=384,  # Embedding dimension for "all-MiniLM-L6-v2"
+        dimension=384,  # Embedding size for "all-MiniLM-L6-v2"
         metric="cosine",
         spec=ServerlessSpec(cloud="aws", region="us-east-1")
     )
-    print(f"✅ Index '{index_name}' created.")
-else:
-    print(f"✅ Index '{index_name}' already exists.")
 
-# Connect to the index
 index = pc.Index(index_name)
 
-# Load embedding model
-embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
-
-# Sample product data
-products = [
-    {"id": "1", "description": "Noise-cancelling over-ear headphones with 30-hour battery life."},
-    {"id": "2", "description": "Latest model smartphone with OLED display and dual cameras."},
-    {"id": "3", "description": "15-inch laptop with 16GB RAM and 512GB SSD storage."},
+# 🛠️ Generate embeddings with valid metadata
+vectors = [
+    {
+        "id": str(product["id"]),
+        "values": embedding_model.encode(product["description"]).tolist(),
+        "metadata": {
+            "title": product["title"],
+            "description": product["description"],
+            "price": product["price"],
+            "image": product["image"],
+            "category": product["category"],
+            "rating_rate": float(product["rating"]["rate"]),    # ✅ Converted to float
+            "rating_count": int(product["rating"]["count"])     # ✅ Converted to int
+        }
+    }
+    for product in products
 ]
 
-# Create embeddings and upsert into Pinecone
-for product in products:
-    embedding = embedding_model.encode(product["description"]).tolist()
-    index.upsert([(product["id"], embedding, {"description": product["description"]})])
-
-print("✅ Embeddings created and stored in Pinecone.")
+# 🚀 Upload embeddings to Pinecone
+index.upsert(vectors=vectors)
+print("✅ Embeddings created and uploaded successfully.")
